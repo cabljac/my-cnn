@@ -7,14 +7,24 @@ fn main() {
 
     // lib::apply_convolution("pxArt.png", kernel);
 
-    let img = open("hotdogman.jpg").unwrap();
+    let img = open("hotdog.jpeg").unwrap();
 
     let array = lib::convert_to_array(img);
     let _r = array.index_axis(Axis(2), 0).to_owned();
     let _g = array.index_axis(Axis(2), 1).to_owned();
     let _b = array.index_axis(Axis(2), 2).to_owned();
 
-    let k = arr2(&[[-1f32, -1.0, -1.0], [-1f32, 8.0, -1.0], [-1f32, -1.0, -1.0]]);
+    let k1 = arr2(&[
+        [-1f32, -1.0, -1.0, -1.0, -1.0],
+        [-1f32, -1.0, 8.0, -1.0, -1.0],
+        [-1f32, -1.0, -1.0, -1.0, -1.0],
+    ]);
+
+    let k2 = arr2(&[[-1f32, -1.0, -1.0], [-1f32, 8.0, -1.0], [-1f32, -1.0, -1.0]]);
+
+    let k3 = arr2(&[[1f32, 0.0, 1.0], [0.0, 1.0, 0.0], [1.0f32, 0.0, 1.0]]);
+
+    let k = k3;
 
     let conv_r = lib::convolution(_r, &k);
     let conv_g = lib::convolution(_g, &k);
@@ -31,8 +41,8 @@ fn main() {
     let normalized = sum.map(|x| x - min);
     let max = normalized.iter().fold(-1.0f32, |a, &b| a.max(b));
     let normalized_2 = normalized.map(|x| (255f32 * (x / max)) as u8);
-    print!("{:?}", sum);
-    print!("{:?}", normalized_2);
+    // print!("{:?}", sum);
+    // print!("{:?}", normalized_2);
     // let buffer = GrayImage::from_raw(
     //     sum.shape()[0] as u32,
     //     sum.shape()[1] as u32,
@@ -49,5 +59,5 @@ fn main() {
             img.put_pixel(x, y, Luma([val]));
         }
     }
-    img.save("test.png").unwrap();
+    img.save("output.png").unwrap();
 }
