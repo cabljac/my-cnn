@@ -18,7 +18,7 @@ pub fn convert_to_array(img: DynamicImage) -> Array3<f32> {
     array
 }
 
-pub fn apply_convolution(path: &str, kernel: [f32; 9]) -> DynamicImage {
+pub fn _apply_convolution(path: &str, kernel: [f32; 9]) -> DynamicImage {
     open(path).unwrap().filter3x3(&kernel)
 }
 
@@ -47,11 +47,16 @@ pub fn convolution(a: ndarray::Array2<f32>, b: &ndarray::Array2<f32>) -> ndarray
 
 #[test]
 fn convolution_test() {
-    let a = ndarray::arr2(&[[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 1, 1]]);
+    let a = ndarray::arr2(&[
+        [1.0f32, 2.0, 3.0],
+        [4.0f32, 5.0, 6.0],
+        [7.0f32, 8.0, 9.0],
+        [1.0f32, 1.0, 1.0],
+    ]);
 
-    let b = ndarray::arr2(&[[1, 0, 1], [0, 1, 0], [1, 0, 1]]);
+    let b = ndarray::arr2(&[[1.0f32, 0.0, 1.0], [0.0f32, 1.0, 0.0], [1.0f32, 0.0, 1.0]]);
 
-    let c = ndarray::arr2(&[[25], [20]]);
+    let c = ndarray::arr2(&[[25.0f32], [20.0f32]]);
 
-    assert_eq!(convolution(a, b), c);
+    assert_eq!(convolution(a, &b), c);
 }
