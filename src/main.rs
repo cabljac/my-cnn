@@ -14,17 +14,17 @@ fn main() {
     let _g = array.index_axis(Axis(2), 1).to_owned();
     let _b = array.index_axis(Axis(2), 2).to_owned();
 
-    let k1 = arr2(&[
+    let _k1 = arr2(&[
         [-1f32, -1.0, -1.0, -1.0, -1.0],
         [-1f32, -1.0, 8.0, -1.0, -1.0],
         [-1f32, -1.0, -1.0, -1.0, -1.0],
     ]);
 
-    let _k2 = arr2(&[[-1f32, -1.0, -1.0], [-1f32, 8.0, -1.0], [-1f32, -1.0, -1.0]]);
+    let k2 = arr2(&[[0.0f32, -1.0, 0.0], [-1f32, 4.0, -1.0], [0.0f32, -1.0, 0.0]]);
 
     let _k3 = arr2(&[[1f32, 1.0, 1.0], [0.0f32, -1.0, 0.0], [1.0f32, 1.0, 1.0]]);
 
-    let k = k1;
+    let k = k2;
 
     let conv_r = lib::convolution(_r, &k);
     let conv_g = lib::convolution(_g, &k);
