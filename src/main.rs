@@ -7,7 +7,7 @@ fn main() {
 
     // lib::apply_convolution("pxArt.png", kernel);
 
-    let img = open("hotdog-pixel.png").unwrap();
+    let img = open("hotdogman.jpg").unwrap();
 
     let array = lib::convert_to_array(img);
     let _r = array.index_axis(Axis(2), 0).to_owned();
@@ -38,11 +38,13 @@ fn main() {
     //     sum.shape()[1] as u32,
     //     sum.into_raw_vec(),
     // );
+    let width = normalized_2.shape()[0] as u32;
+    let height = normalized_2.shape()[1] as u32;
 
-    let mut img = GrayImage::new(30, 21);
+    let mut img = GrayImage::new(width, height);
 
-    for x in 0..29u32 {
-        for y in 0..20u32 {
+    for x in 0..width - 1 {
+        for y in 0..height - 1 {
             let val = normalized_2[[x as usize, y as usize]];
             img.put_pixel(x, y, Luma([val]));
         }
